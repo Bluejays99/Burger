@@ -1,44 +1,36 @@
-<div class="container">
+<div class="container-fluid">
+ 
+    <div class="row">
+        <div class="col-xs-12 text-center enter_section">
+            <p>Take a break, eat a virtual burger!</p>
+            <p id="error"></p>
+            <form>
+                <label for="burger_name">Burger Name:</label>
+                <input type="text" id="burger_name" name="burger_name">
+                <button type="submit" class="btn btn-primary" id="order-button">Order</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-4 menuDiv" id="menu">
 
-<div class="jumbotron jumbotron-fluid jumbo-one">
-  <div class="container">
-    <h1 class="display-4 text-center">Eat Da Burger</h1>
-    <p class="lead text-center">Add a burger you want to eat and click the submit button.</p>
-  </div>
+            <h1 class="menuTitle">Ready to Devour!</h1>
+            {{#each burgers}}
+            {{#unless devoured}}
+            {{> menu devoured=true}}
+            {{/unless}}
+            {{/each}}
 
-      <div class="form-group">
-        <form class="text-center">
-          {{!-- <form method="POST" action="/api/burgers"> --}}
-          {{!-- Don't need because its called in the home.js file --}}
-              <input type="text" id="burger_name" name="burger_name">
-              <button type="submit" id="addNewBurger">Submit</button>
-        </form>
-      </div>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-4 menuDiv">
+            <h1 class="menuTitle">Devoured!</h1>
+            {{#each burgers}}
+            {{#if devoured}}
+            {{> menu devoured=false}}
+            {{/if}}
+            {{/each}}
+        </div>
+    </div>
 </div>
-
-  <div class="container container-menu">
-
-  <div class="row burger-row">
-    <div class="col-1"></div>
-    <div class="col-4 menuDiv" id="menu">
-      <h2 class="current-menu"><strong>CURRENT MENU:</strong></h2>
-      {{#each burgers}}
-      {{#unless devoured}}
-      {{> menu devoured=true}}
-      {{/unless}}
-      {{/each}}
-    </div>
-
-    <div class="col-1"></div>
-    <div class="col-4 menuDiv" id="menu">
-      <h2 class="current-menu"><strong>DEVOURED:</strong></h2>
-
-      {{#each burgers}}
-      {{#if devoured}}
-      {{> menu devoured=false}}
-      {{/if}}
-      {{/each}}
-    </div>
-  </div>
-
-  </div>
