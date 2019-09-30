@@ -16,9 +16,9 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	{{!-- CSS/JS --}}
-	<link rel="stylesheet" href="/css/style.css" type= "text/css"/>
-<link rel="stylesheet" href="/css/style2.css" type= "text/css"/>
-	<script src="/js/home.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="./public/assets/css/style.css" type= "text/css"/>
+<link rel="stylesheet" href="./public/assets/css/style2.css" type= "text/css"/>
+	{{!-- <script src="./public/js/home.js" type="text/javascript"></script> --}}
 </head>
 
 <body background="https://cdn2.vectorstock.com/i/1000x1000/31/81/seamless-pattern-of-burger-with-yellow-background-vector-22703181.jpg">
@@ -28,7 +28,47 @@
 <h1>AFTER HOURS BURGER RESTAURANT</h1>
 
   <footer class="footer">
-        <a href="https://github.com/Bluejays99/burger">Github Repo</a>| <a href="https://kristina-burger.herokuapp.com" >Heroku Link</a>
+        <a href="https://github.com/Bluejays99/burger">Github Repo</a>| <a href="https://chris-burger.herokuapp.com/" >Heroku Link</a>
       </footer>
       </body>
+	  <script type="text/javascript">
+    $(document).on("click", ".eatButton", function () {
+    console.log("clicked")
+    var burgerId = $(this).data("id");
+    var devoured = $(this).data("eaten");
+    console.log(devoured)
+
+    var newdevoured = {
+        devoured: eaten
+    };
+
+    $.ajax("/api/burgers/" + burgerId, {
+        method: "PUT",
+        data: newdevoured
+    }).then(function () {
+        location.reload();
+    })
+})
+
+$(document).on("click", "#order-button", function(event) {
+    event.preventDefault();
+    var newBurgerName = $("#burger_name").val().trim();
+
+    if (newBurgerName) {
+        var newBurger = {
+            burger_name: newBurgerName
+        }
+
+        $.post("/api/burgers", newBurger, function() {
+            location.reload();
+        })
+    } else {
+        $("#error").text("Please enter a burger name.");
+    }
+})
+
+
+
+
+	  </script>
 </html>
